@@ -66,7 +66,7 @@ namespace Modern.Forms.Drawing
                 Style = SKPaintStyle.Fill,
                 TextAlign = SKTextAlign.Left,
                 Typeface = typeface,
-                FakeBoldText = decorations.HasFlag (TextDecoration.Bold),
+                FakeBoldText = decorations.HasFlag (TextDecoration.Bold),                
                 TextSize = size,// * 1.0f,
             }) {
                 if (decorations.HasFlag (TextDecoration.Italic))

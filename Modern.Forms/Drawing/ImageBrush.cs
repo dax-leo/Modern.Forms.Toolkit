@@ -48,7 +48,8 @@ namespace Modern.Forms.Drawing
 
         public void FillRect (SKCanvas canvas, float x, float y, float width, float height)
         {
-            throw new NotImplementedException ();
+            using SKPaint p = new SKPaint ();            
+            canvas.DrawBitmap(Source, new SKRect(x, y, x+width, y+height), p);
         }
 
         public void Stroke (SKCanvas canvas, SKPath path, float size, StrokeStyle style, SKStrokeCap cap, SKStrokeJoin join)

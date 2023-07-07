@@ -64,12 +64,13 @@ namespace Modern.Forms.Drawing
             }
         }
 
-        public void FillRect (SKCanvas canvas, float x, float y, float width, float height)
+        public void FillRect(SKCanvas canvas, float x, float y, float width, float height)
         {
-            var rect = new SKRect (x, y, width, height);
-            using (var paint = this.CreatePaint (rect)) {
+            var rect = new SKRect(x, y, x + width, y + height);
+            using (var paint = this.CreatePaint(rect))
+            {
                 paint.Style = SKPaintStyle.Fill;
-                canvas.DrawRect (rect, paint);
+                canvas.DrawRect(rect, paint);
             }
         }
 
