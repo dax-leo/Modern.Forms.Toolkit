@@ -20,7 +20,7 @@ namespace Modern.Forms.Drawing
         {
             using (var paint = new SKPaint () {
                 IsAntialias = true,
-                Color = Color,
+                Color = Color,                               
                 Style = SKPaintStyle.Fill,
             }) {
                 canvas.DrawPath (path, paint);

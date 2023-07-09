@@ -23,10 +23,11 @@ namespace Modern.Forms.Drawing
         {
             using (var paint = new SKPaint () {
                 IsAntialias = true,
-                Style = SKPaintStyle.Fill,
+                Style = SKPaintStyle.Fill                
             }) {
                 canvas.Save ();
-                try {
+                //paint.Shader = SKShader.CreateBitmap(Source, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);   
+                try {                    
                     using (var img = SKImage.FromBitmap (Source)) {
                         paint.Color = SKColors.White.WithAlpha ((byte)(this.Opacity * 255));
                         canvas.ClipPath (path);

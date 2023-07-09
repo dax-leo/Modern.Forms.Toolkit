@@ -30,7 +30,7 @@ namespace Modern.Forms
                 FontFamily = font.FamilyName,
                 FontSize = fontSize,
                 TextColor = color,
-                FontWeight = font.FontWeight
+                FontWeight = font.FontWeight                
             };
 
             tb.AddText (text, styleNormal);
