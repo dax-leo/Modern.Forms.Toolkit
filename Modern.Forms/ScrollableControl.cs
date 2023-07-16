@@ -140,6 +140,7 @@ namespace Modern.Forms
                 ScrollWindow (0, vscrollbar.Value - scroll_position.Y);
             else if (sender == hscrollbar && hscrollbar.Visible)
                 ScrollWindow (hscrollbar.Value - scroll_position.X, 0);
+            Invalidate();
         }
 
         /// <summary>
@@ -158,10 +159,7 @@ namespace Modern.Forms
 
         /// <inheritdoc/>
         protected override void OnPaint (PaintEventArgs e)
-        {
-            hscrollbar.Invalidate ();
-            vscrollbar.Invalidate ();
-
+        {            
             base.OnPaint (e);
 
             RenderManager.Render (this, e);

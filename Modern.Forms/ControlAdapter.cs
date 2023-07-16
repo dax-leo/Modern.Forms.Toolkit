@@ -13,27 +13,28 @@ namespace Modern.Forms
     {
         private Control? selected_control;
 
-        public ControlAdapter (WindowBase parent)
+        public ControlAdapter(WindowBase parent)
         {
             ParentForm = parent;
-            SetControlBehavior (ControlBehaviors.Selectable, false);
+            SetControlBehavior(ControlBehaviors.Selectable, false);
         }
 
         // We need to override this because the ControlAdapter doesn't need to be scaled
-        public override Rectangle ClientRectangle {
-            get {
-                var x = CurrentStyle.Border.Left.GetWidth ();
-                var y = CurrentStyle.Border.Top.GetWidth ();
-                var w = Width - CurrentStyle.Border.Right.GetWidth () - x;
-                var h = Height - CurrentStyle.Border.Bottom.GetWidth () - y;
-                return new Rectangle (x, y, w, h);
+        public override Rectangle ClientRectangle
+        {
+            get
+            {
+                var x = CurrentStyle.Border.Left.GetWidth();
+                var y = CurrentStyle.Border.Top.GetWidth();
+                var w = Width - CurrentStyle.Border.Right.GetWidth() - x;
+                var h = Height - CurrentStyle.Border.Bottom.GetWidth() - y;
+                return new Rectangle(x, y, w, h);
             }
         }
 
         public WindowBase ParentForm { get; }
 
-
-        protected override void OnPaint (PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
             // We have this special version for the Adapter because it is
             // given the Form's native surface including any managed Form
@@ -42,50 +43,66 @@ namespace Modern.Forms
             // This could probably eliminated in the future with Canvas.Translate.
             var form_border = ParentForm.CurrentStyle.Border;
 
-            var form_x = form_border.Left.GetWidth ();
-            var form_y = form_border.Top.GetWidth ();
+            var form_x = form_border.Left.GetWidth();
+            var form_y = form_border.Top.GetWidth();
 
-            var buffer = GetBackBuffer ();
+            var buffer = GetBackBuffer();
 
-            foreach (var control in Controls.GetAllControls ().Where (c => c.Visible).ToArray ()) {
+            foreach (var control in Controls.GetAllControls(true).Where(c => c.Visible).ToArray())
+            {
                 if (control.Width <= 0 || control.Height <= 0)
                     continue;
 
-                Invalidator (control, buffer);
+                Paint(control, buffer);
             }
 
-            e.Canvas.DrawBitmap (buffer, form_x + 0, form_y + 0);
+            e.Canvas.DrawBitmap(buffer, form_x + 0, form_y + 0);
         }
 
-        private void Invalidator (Control control, SKBitmap? buffer)
+        private void Paint(Control control, SKBitmap? buffer)
         {
-            if (control.ThisNeedsPaint && control.Visible) {
-                var info = new SKImageInfo (control.Width, control.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
+            if (control.ThisNeedsPaint && control.Visible)
+            {
+                var info = new SKImageInfo(control.Width, control.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
 
-                using (var canvas = new SKCanvas (buffer)) {
+                using (var canvas = new SKCanvas(buffer))
+                {
                     // start drawing
-                    var args = new PaintEventArgs (info, canvas, Scaling);
+                    var args = new PaintEventArgs(info, canvas, Scaling);
 
-                    var rec = new Rectangle (
-                        (int)Math.Round(control.GetPositionInForm ().X * Scaling, MidpointRounding.AwayFromZero), 
-                        (int)Math.Round (control.GetPositionInForm ().Y * Scaling, MidpointRounding.AwayFromZero), 
-                        control.ScaledWidth, 
-                        control.ScaledHeight);
+                    var ctrl_position = control.GetPositionInForm();
+                    var parent_pos = control.Parent == this ? Point.Empty : control.Parent.GetPositionInForm();
 
-                    canvas.Clip (rec);
-                    canvas.Translate ((int)(control.GetPositionInForm ().X * Scaling), (int)(control.GetPositionInForm ().Y * Scaling));
+                    // points require scaling offset
+                    var scaled_ctrl_pos = new Point(
+                        (int)Math.Round(ctrl_position.X * Scaling, MidpointRounding.ToEven),
+                        (int)Math.Round(ctrl_position.Y * Scaling, MidpointRounding.ToEven));
+                    var scaled_parent_pos = new Point(
+                        (int)Math.Round(parent_pos.X * Scaling, MidpointRounding.ToEven),
+                        (int)Math.Round(parent_pos.Y * Scaling, MidpointRounding.ToEven));
 
-                    control.RaisePaintBackground (args);
-                    control.RaisePaint (args);
+                    // Clipping must be within Parent bounds.
+                    // To make sure rendering is always within parent control we create [control] intersection against [control].Parent.
+                    var rec = new Rectangle(scaled_ctrl_pos, control.ScaledBounds.Size);
+                    var new_parent_bounds = new Rectangle(scaled_parent_pos, control.Parent.ScaledBounds.Size);
+                    rec.Intersect(new_parent_bounds);
 
-                    canvas.Flush ();
+                    canvas.Clip(rec);
+                    canvas.Translate((scaled_ctrl_pos.X), (scaled_ctrl_pos.Y));
 
-                    //Debug.WriteLine (control.GetType ().Name + "   " + rec);
+                    control.RaisePaintBackground(args);
+                    control.RaisePaint(args);
+
+                    canvas.Flush();
+
+                    Debug.WriteLine(control.GetType().Name + "   " + rec);
                 }
             }
 
-            foreach (var c in control.Controls) {
-                Invalidator (c, buffer);
+            // Recursively scan for other child controls.
+            foreach (var c in control.Controls.GetAllControls(true))
+            {
+                Paint(c, buffer);
             }
         }
 
@@ -167,52 +184,57 @@ namespace Modern.Forms
         //    e.Canvas.DrawBitmap (buffer, form_x + 0, form_y + 0);
         //}
 
-        public override bool Visible {
+        public override bool Visible
+        {
             get => ParentForm != null;
             set { }
         }
 
-        internal Control? SelectedControl {
+        internal Control? SelectedControl
+        {
             get => selected_control;
-            set {
+            set
+            {
                 if (selected_control == value)
                     return;
 
-                selected_control?.Deselect ();
+                selected_control?.Deselect();
 
                 if (value is ControlAdapter)
                     return;
 
                 // Note they could be setting this to null
                 selected_control = value;
-                selected_control?.Select ();
+                selected_control?.Select();
             }
         }
 
-        internal void RaiseParentVisibleChanged (EventArgs e)
+        internal void RaiseParentVisibleChanged(EventArgs e)
         {
-            OnParentVisibleChanged (e);
+            OnParentVisibleChanged(e);
         }
 
 
         private SKBitmap? back_buffer;
 
-        internal SKBitmap GetBackBuffer ()
+        internal SKBitmap GetBackBuffer()
         {
-            if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height) {
-                FreeBackBuffer ();
-                back_buffer = new SKBitmap (ScaledSize.Width, ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-                SetState (States.IsDirty, true);
-                Invalidate ();
+            if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height)
+            {
+                FreeBackBuffer();
+                back_buffer = new SKBitmap(ScaledSize.Width, ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
+                SetState(States.IsDirty, true);
+                Invalidate();
             }
 
             return back_buffer;
         }
 
-        private void FreeBackBuffer ()
+        private void FreeBackBuffer()
         {
-            if (back_buffer != null) {
-                back_buffer.Dispose ();
+            if (back_buffer != null)
+            {
+                back_buffer.Dispose();
                 back_buffer = null;
             }
         }

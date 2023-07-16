@@ -27,7 +27,7 @@ namespace Modern.Forms
             SetControlBehavior (ControlBehaviors.InvalidateOnTextChanged);
             SetControlBehavior (ControlBehaviors.Selectable, false);
 
-            minimize_button = Controls.Add (new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Minimize));
+            minimize_button = Controls.AddImplicitControl(new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Minimize));
             minimize_button.Style.BackgroundColor = Theme.PrimaryColor;
             minimize_button.Click += (o, e) => {
                 var form_min = FindForm ();
@@ -36,7 +36,7 @@ namespace Modern.Forms
                     form_min.WindowState = FormWindowState.Minimized;
             };
 
-            maximize_button = Controls.Add (new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Maximize));
+            maximize_button = Controls.AddImplicitControl(new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Maximize));
             maximize_button.Style.BackgroundColor = Theme.PrimaryColor;
             maximize_button.Click += (o, e) => {
                 var form = FindForm ();
@@ -45,11 +45,11 @@ namespace Modern.Forms
                     form.WindowState = form.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
             };
 
-            close_button = Controls.Add (new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Close));
+            close_button = Controls.AddImplicitControl(new TitleBarButton (TitleBarButton.TitleBarButtonGlyph.Close));
             close_button.Style.BackgroundColor = Theme.PrimaryColor;
             close_button.Click += (o, e) => { FindForm ()?.Close (); };
 
-            form_image = Controls.Add (new PictureBox {
+            form_image = Controls.AddImplicitControl (new PictureBox {
                 Width = DefaultSize.Height,
                 Dock = DockStyle.Left,
                 Visible = false,

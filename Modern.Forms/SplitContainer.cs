@@ -28,7 +28,7 @@ namespace Modern.Forms
 
             splitter.Drag += Splitter_Drag;
 
-            Panel1.Resize += Panel1_Resize;
+            //Panel1.Resize += Panel1_Resize;
         }
 
         private void Panel1_Resize (object? sender, EventArgs e)

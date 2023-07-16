@@ -38,7 +38,7 @@ namespace Modern.Forms
 
             vscrollbar.ValueChanged += VerticalScrollBar_ValueChanged;
 
-            Controls.Add (vscrollbar);
+            Controls.AddImplicitControl (vscrollbar);
         }
 
         /// <inheritdoc/>

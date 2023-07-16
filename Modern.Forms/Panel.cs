@@ -7,7 +7,7 @@ namespace Modern.Forms
     /// <summary>
     /// Represents a Panel control.
     /// </summary>
-    public class Panel : ScrollableControl
+    public class Panel : Control// ScrollableControl
     {
         /// <summary>
         /// Initializes a new instance of the Panel class.
