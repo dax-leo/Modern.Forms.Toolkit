@@ -12,6 +12,7 @@ namespace Modern.Forms
     internal class ControlAdapter : ScrollableControl
     {
         private Control? selected_control;
+        private bool _fullRefresh = false;
 
         public ControlAdapter(WindowBase parent)
         {
@@ -36,6 +37,7 @@ namespace Modern.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            //Debug.WriteLine (Environment.NewLine);
             // We have this special version for the Adapter because it is
             // given the Form's native surface including any managed Form
             // borders, and it needs to not draw on top of those borders.
@@ -57,11 +59,12 @@ namespace Modern.Forms
             }
 
             e.Canvas.DrawBitmap(buffer, form_x + 0, form_y + 0);
+            _fullRefresh = false;
         }
 
         private void Paint(Control control, SKBitmap? buffer)
         {
-            if (control.ThisNeedsPaint && control.Visible)
+            if ((_fullRefresh || control.ThisNeedsPaint) && control.Visible)
             {
                 var info = new SKImageInfo(control.Width, control.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
 
@@ -84,6 +87,7 @@ namespace Modern.Forms
                     // Clipping must be within Parent bounds.
                     // To make sure rendering is always within parent control we create [control] intersection against [control].Parent.
                     var rec = new Rectangle(scaled_ctrl_pos, control.ScaledBounds.Size);
+
                     var new_parent_bounds = new Rectangle(scaled_parent_pos, control.Parent.ScaledBounds.Size);
                     rec.Intersect(new_parent_bounds);
 
@@ -95,7 +99,7 @@ namespace Modern.Forms
 
                     canvas.Flush();
 
-                    Debug.WriteLine(control.GetType().Name + "   " + rec);
+                    //Debug.WriteLine (control.GetType ().Name + "   " + rec);
                 }
             }
 
@@ -106,83 +110,13 @@ namespace Modern.Forms
             }
         }
 
+        protected override void OnControlRemoved(EventArgs<Control> e)
+        {
+            // After removing any Adapter Control from its collection (not from any child object) we have to refresh buffer.
+            _fullRefresh = true;
 
-        //protected override void OnPaint (PaintEventArgs e)
-        //{
-        //    // We have this special version for the Adapter because it is
-        //    // given the Form's native surface including any managed Form
-        //    // borders, and it needs to not draw on top of those borders.
-        //    // That is, this often needs to start drawing at (1, 1) instead of (0, 0)
-        //    // This could probably eliminated in the future with Canvas.Translate.
-        //    var form_border = ParentForm.CurrentStyle.Border;
-
-        //    var form_x = form_border.Left.GetWidth ();
-        //    var form_y = form_border.Top.GetWidth ();
-
-        //    foreach (var control in Controls.GetAllControls ().Where (c => c.Visible).ToArray ()) {
-        //        if (control.Width <= 0 || control.Height <= 0)
-        //            continue;
-
-        //        var info = new SKImageInfo (control.Width, control.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-        //        var buffer = control.GetBackBuffer ();
-        //        Debug.WriteLine (buffer.ByteCount);
-        //        if (control.NeedsPaint) {
-        //            using (var canvas = new SKCanvas (buffer)) {
-        //                // start drawing
-        //                var args = new PaintEventArgs (info, canvas, Scaling);
-
-        //                control.RaisePaintBackground (args);
-        //                control.RaisePaint (args);
-
-        //                canvas.Flush ();
-        //            }
-        //        }
-
-        //        e.Canvas.DrawBitmap (buffer, form_x + control.ScaledLeft, form_y + control.ScaledTop);
-        //    }
-        //}
-
-        //protected override void OnPaint (PaintEventArgs e)
-        //{
-        //    // We have this special version for the Adapter because it is
-        //    // given the Form's native surface including any managed Form
-        //    // borders, and it needs to not draw on top of those borders.
-        //    // That is, this often needs to start drawing at (1, 1) instead of (0, 0)
-        //    // This could probably eliminated in the future with Canvas.Translate.
-        //    var form_border = ParentForm.CurrentStyle.Border;
-
-        //    var form_x = form_border.Left.GetWidth ();
-        //    var form_y = form_border.Top.GetWidth ();
-
-        //    var buffer = this.GetBackBuffer ();// control.GetBackBuffer ();
-
-        //    foreach (var control in Controls.GetAllControls ().Where (c => c.Visible).ToArray ()) {
-        //        if (control.Width <= 0 || control.Height <= 0)
-        //            continue;
-
-        //        var info = new SKImageInfo (control.Width, control.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-
-        //        if (control.NeedsPaint) {
-        //            using (var canvas = new SKCanvas (buffer)) {
-        //                // start drawing
-        //                var args = new PaintEventArgs (info, canvas, Scaling);
-
-        //                canvas.Clip (control.ScaledBounds);
-        //                canvas.Translate (control.ScaledLeft, control.ScaledTop);
-
-
-        //                control.RaisePaintBackground (args);
-        //                control.RaisePaint (args);
-
-        //                canvas.Flush ();
-        //            }
-        //        }
-
-
-        //    }
-
-        //    e.Canvas.DrawBitmap (buffer, form_x + 0, form_y + 0);
-        //}
+            base.OnControlRemoved(e);
+        }
 
         public override bool Visible
         {
@@ -214,12 +148,11 @@ namespace Modern.Forms
             OnParentVisibleChanged(e);
         }
 
-
         private SKBitmap? back_buffer;
 
         internal SKBitmap GetBackBuffer()
         {
-            if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height)
+            if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height || _fullRefresh)
             {
                 FreeBackBuffer();
                 back_buffer = new SKBitmap(ScaledSize.Width, ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);

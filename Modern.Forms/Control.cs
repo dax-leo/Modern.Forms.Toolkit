@@ -72,7 +72,6 @@ namespace Modern.Forms
             _width = default_size.Width;
             _height = default_size.Height;
 
-            //Theme.ThemeChanged += (o, e) => SetState (States.IsDirty, true);
             Theme.ThemeChanged += Theme_ThemeChanged;
         }
 
@@ -85,12 +84,7 @@ namespace Modern.Forms
         protected virtual void OnThemeChanged(EventArgs e)
         {
         }
-
-        public void Invoke(Action action)
-        {
-            Dispatcher.UIThread.Post(action, DispatcherPriority.Background);
-        }
-
+        
         /// <summary>
         ///  Assigns a new parent control. Sends out the appropriate property change
         ///  notifications for properties that are affected by the change of parent.
@@ -541,17 +535,6 @@ namespace Modern.Forms
         /// </summary>
         public bool Focused => Selected;
 
-        /// <summary>
-        /// Releases the back buffer.
-        /// </summary>
-        //public void FreeBackBuffer ()
-        //{
-        //    if (back_buffer != null) {
-        //        back_buffer.Dispose ();
-        //        back_buffer = null;
-        //    }
-        //}
-
         internal bool GetAnyDisposingInHierarchy()
         {
             var up = this;
@@ -566,36 +549,6 @@ namespace Modern.Forms
 
             return false;
         }
-
-        ///// <summary>
-        ///// Gets or creates a back buffer for rendering the control.
-        ///// </summary>
-        //internal SKBitmap GetBackBuffer ()
-        //{
-        //    if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height) {
-        //        FreeBackBuffer ();
-        //        back_buffer = new SKBitmap (ScaledSize.Width, ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-        //        SetState (States.IsDirty, true);
-        //    }
-
-        //    return back_buffer;
-        //}
-
-        ///// <summary>
-        ///// Gets or creates a back buffer for rendering the control.
-        ///// </summary>
-        //internal SKBitmap GetBackBufferX ()
-        //{
-        //    if (back_buffer is null || back_buffer.Width != ScaledSize.Width || back_buffer.Height != ScaledSize.Height) {
-        //        FreeBackBuffer ();
-        //        back_buffer = new SKBitmap (ScaledSize.Width, ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-        //        SetState (States.IsDirty, true);
-        //    }
-
-        //    back_buffer = Parent?.GetBackBuffer ();
-
-        //    return back_buffer;
-        //}
 
 
         /// <summary>
@@ -956,8 +909,8 @@ namespace Modern.Forms
 
             var this_loc = owner.GetPositionInForm();
             var scaled_this_loc = new Point(
-                        (int)Math.Round(this_loc.X * Scaling, MidpointRounding.AwayFromZero),
-                        (int)Math.Round(this_loc.Y * Scaling, MidpointRounding.AwayFromZero));
+                        (int)Math.Round(this_loc.X * Scaling, MidpointRounding.ToEven),
+                        (int)Math.Round(this_loc.Y * Scaling, MidpointRounding.ToEven));
             var ctrl_bounds = new Rectangle(scaled_this_loc, ScaledBounds.Size);
 
             // Invalidate any other control with the same parent if control intersects observed one.
@@ -968,8 +921,8 @@ namespace Modern.Forms
                 var c_loc = c.GetPositionInForm();
 
                 var scaled_c_pos = new Point(
-                        (int)Math.Round(c_loc.X * Scaling, MidpointRounding.AwayFromZero),
-                        (int)Math.Round(c_loc.Y * Scaling, MidpointRounding.AwayFromZero));
+                        (int)Math.Round(c_loc.X * Scaling, MidpointRounding.ToEven),
+                        (int)Math.Round(c_loc.Y * Scaling, MidpointRounding.ToEven));
 
                 var c_bounds = new Rectangle(scaled_c_pos, c.ScaledBounds.Size);
 
@@ -983,38 +936,6 @@ namespace Modern.Forms
                 }
             }
         }
-
-        ///// <summary>
-        ///// Invalidate any control that intersects current one.
-        ///// If there is even single intersection we invalidate the whole parent. 
-        ///// </summary>
-        //private void DirtyByInteresction ()
-        //{
-        //    if (Parent == null) return;
-
-        //    var this_loc = this.GetPositionInForm ();
-        //    var scaled_this_loc = new Point (
-        //                (int)Math.Round (this_loc.X * Scaling, MidpointRounding.AwayFromZero),
-        //                (int)Math.Round (this_loc.Y * Scaling, MidpointRounding.AwayFromZero));
-        //    var ctrl_bounds = new Rectangle (scaled_this_loc, ScaledBounds.Size);
-
-        //    // Invalidate any other control with the same parent if such control intersects observed one.
-        //    foreach (var c in Parent.Controls.GetAllControls (true)) {
-        //        if (c == this || !c.Visible) continue;
-
-        //        var c_loc = c.GetPositionInForm ();
-        //        var scaled_c_pos = new Point (
-        //                (int)Math.Round (c_loc.X * Scaling, MidpointRounding.AwayFromZero),
-        //                (int)Math.Round (c_loc.Y * Scaling, MidpointRounding.AwayFromZero));
-        //        var c_bounds = new Rectangle (scaled_c_pos, c.ScaledBounds.Size);
-
-        //        if (ctrl_bounds.IntersectsWith (c_bounds)) {
-        //            Debug.WriteLine (this.GetType ().Name + " - intersects -> " + c.GetType().Name);
-        //            Parent.Invalidate (false);
-        //            break;
-        //        } 
-        //    }
-        //}
 
         /// <summary>
         /// Mark all child controls as dirty.
@@ -1233,12 +1154,12 @@ namespace Modern.Forms
         /// <summary>
         ///  Raises the <see cref='ControlAdded'/> event.
         /// </summary>
-        protected virtual void OnControlAdded(EventArgs<Control> e) => (Events[s_controlAddedEvent] as EventHandler<EventArgs<Control>>)?.Invoke(this, e);
+        protected virtual void OnControlAdded(EventArgs<Control> e) { Invalidate(); (Events[s_controlAddedEvent] as EventHandler<EventArgs<Control>>)?.Invoke(this, e); }
 
         /// <summary>
         ///  Raises the <see cref='ControlRemoved'/> event.
         /// </summary>
-        protected virtual void OnControlRemoved(EventArgs<Control> e) => (Events[s_controlRemovedEvent] as EventHandler<EventArgs<Control>>)?.Invoke(this, e);
+        protected virtual void OnControlRemoved(EventArgs<Control> e) { Invalidate(); (Events[s_controlRemovedEvent] as EventHandler<EventArgs<Control>>)?.Invoke(this, e); }
 
         /// <summary>
         ///  Called when the control is first created.
@@ -1374,29 +1295,7 @@ namespace Modern.Forms
         /// </summary>
         /// <param name="e">A PaintEventArgs that contains the event data.</param>
         protected virtual void OnPaint(PaintEventArgs e)
-        {
-            //foreach (var control in Controls.GetAllControls ().Where (c => c.Visible).ToArray ()) {
-            //    if (control.Width <= 0 || control.Height <= 0)
-            //        continue;
-
-            //    var info = new SKImageInfo (control.ScaledSize.Width, control.ScaledSize.Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul);
-            //    var buffer = control.GetBackBuffer ();
-            //    //if (buffer == null) continue;
-            //    //Debug.WriteLine (control.GetType().ToString() + " - " + buffer.Bytes.Length);
-            //    if (control.NeedsPaint) {
-            //        using (var canvas = new SKCanvas (buffer)) {
-            //            // start drawing
-            //            var args = new PaintEventArgs (info, canvas, Scaling);
-
-            //            control.RaisePaintBackground (args);
-            //            control.RaisePaint (args);
-
-            //            canvas.Flush ();
-            //        }
-            //    }
-
-            //    e.Canvas.DrawBitmap (buffer, control.ScaledLeft, control.ScaledTop);                
-            //}
+        {            
         }
 
         /// <summary>
@@ -1693,8 +1592,9 @@ namespace Modern.Forms
             {
                 // If we're clicking on the a Control that isn't the active menu, 
                 // we need to close the active menu (if any)
-                if ((this as MenuBase)?.GetTopLevelMenu() != Application.ActiveMenu)
-                    Application.ActiveMenu?.Deactivate();
+                
+                if ((this as MenuBase)?.GetTopLevelMenu() != Application.ActiveMenu || Application.ActiveMenu is null)
+                    Application.ClosePopups();
 
                 if (Enabled)
                 {
@@ -1921,32 +1821,6 @@ namespace Modern.Forms
                 return _dpi;
             }
         }
-
-
-        ///// <summary>
-        ///// Gets the current scale factor of the control.
-        ///// </summary>
-        //public SizeF ScaleFactor {
-        //    get {
-        //        if (SkiaExtensions.IgnorePixelScaling)
-        //            _dpi = new SizeF (
-        //                (float)Math.Round ((DeviceDpi / DpiHelper.LogicalDpi - 1) * SkiaExtensions.ScalingReduction + 1, 1),  //1
-        //                (float)Math.Round ((DeviceDpi / DpiHelper.LogicalDpi - 1) * SkiaExtensions.ScalingReduction + 1, 1)   //1
-        //                );
-        //        else
-        //            _dpi = new SizeF ((float)(DeviceDpi / DpiHelper.LogicalDpi), (float)(DeviceDpi / DpiHelper.LogicalDpi));
-        //        return _dpi;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Gets the current scale factor of the form.
-        ///// </summary>
-        //public double Scaling => SkiaExtensions.IgnorePixelScaling
-        //    ? (float)Math.Round(
-        //        (DeviceDpi / DpiHelper.LogicalDpi - 1) * SkiaExtensions.ScalingReduction + 1, 
-        //        1) //1
-        //    : (FindWindow ()?.Scaling ?? 1);
 
         /// <summary>
         /// Gets the current scale factor of the form.

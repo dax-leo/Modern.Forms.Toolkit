@@ -11,7 +11,7 @@ namespace Modern.Forms
         private readonly TabControl owner;
         private readonly TabStrip tab_strip;
 
-        internal TabPageCollection (TabControl owner, TabStrip tabStrip)
+        internal TabPageCollection(TabControl owner, TabStrip tabStrip)
         {
             this.owner = owner;
             tab_strip = tabStrip;
@@ -20,9 +20,9 @@ namespace Modern.Forms
         /// <summary>
         /// Adds the TabPage to the collection.
         /// </summary>
-        public new TabPage Add (TabPage item)
+        public new TabPage Add(TabPage item)
         {
-            base.Add (item);
+            base.Add(item);
 
             return item;
         }
@@ -30,35 +30,38 @@ namespace Modern.Forms
         /// <summary>
         /// Adds a new TabPage to the collection with the specified text.
         /// </summary>
-        public TabPage Add (string text) => Add (new TabPage (text));
+        public TabPage Add(string text) => Add(new TabPage(text));
 
         /// <inheritdoc/>
-        protected override void InsertItem (int index, TabPage item)
+        protected override void InsertItem(int index, TabPage item)
         {
-            base.InsertItem (index, item);
+            base.InsertItem(index, item);
 
             item.Visible = false;
-            owner.Controls.Insert (index, item);
-            tab_strip.Tabs.Insert (index, item.TabStripItem);
+            owner.Controls.Insert(index, item);
+            tab_strip.Tabs.Insert(index, item.TabStripItem);
         }
 
         /// <inheritdoc/>
-        protected override void RemoveItem (int index)
+        protected override void RemoveItem(int index)
         {
-            base.RemoveItem (index);
-            
-            owner.Controls.RemoveAt (index);
-            tab_strip.Tabs.RemoveAt (index);
+            base.RemoveItem(index);
+
+            owner.Controls.RemoveAt(index);
+            tab_strip.Tabs.RemoveAt(index);
         }
 
         /// <inheritdoc/>
-        protected override void SetItem (int index, TabPage item)
+        protected override void SetItem(int index, TabPage item)
         {
-            base.SetItem (index, item);
+            base.SetItem(index, item);
 
             item.Visible = false;
-            owner.Controls[index] = item;
-            tab_strip.Tabs[index] = item.TabStripItem;
+
+            owner.SuspendLayout();
+            RemoveItem(index);
+            InsertItem(index, item);
+            owner.ResumeLayout();
         }
     }
 }
