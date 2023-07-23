@@ -1,7 +1,7 @@
 # Modern.Forms.Toolkit
 
 Fork of excellent Modern.Forms project.  
-The purpose of this fork is to continue updating original code with new features and UI components.
+The purpose of this fork is to extend the original code with new features and UI components.
 
 **Warning**  :  
 > Do not use it in a production deployment !  
