@@ -2,7 +2,7 @@
 
 Fork of Modern.Forms project.  
 https://github.com/modern-forms/Modern.Forms  
-The purpose of this fork is to extend the original code with new features and UI components.
+The goal of this fork is to extend the original code with new features and UI components.
 
 **Warning**  :  
 > Do not use it in a production deployment !  
