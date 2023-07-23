@@ -11,7 +11,7 @@ The goal of this fork is to extend the original code with new features and UI co
 
 
 ### Version 1.4.0
-- Added MonthCalendar control.  
+- Added MonthCalendar and MonthCaledarDropDown control.  
 (https://www.codeproject.com/Articles/10840/Another-Month-Calendar)  
 <img src="img/calendar.png" width="256"/>
 
