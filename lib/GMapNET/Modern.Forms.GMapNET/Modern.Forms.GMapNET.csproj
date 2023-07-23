@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <PackageId>Modern.Forms.GMapNET</PackageId>
+    <Product>Modern.Forms.GMapNET</Product>
+    <AssemblyTitle>Modern.Forms.GMapNET</AssemblyTitle>    
+    <TargetFrameworks>net8.0</TargetFrameworks>    
+    <DefineConstants>ContinuesMapNo;$(DefineConstants)</DefineConstants>
+	<Version>1.0.2</Version>
+    <PackageReleaseNotes>
+- Modern.Forms support added
+
+History Release Notes
+https://github.com/judero01col/GMap.NET/blob/master/README.md#release-notes
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+    <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
+        <DefineConstants>NETFRAMEWORK;ContinuesMapNo;$(DefineConstants)</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netstandard\d'))">
+        <DefineConstants>NETSTANDARD;ContinuesMapNo;$(DefineConstants)</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netcoreapp\d'))">
+        <DefineConstants>NETCORE;ContinuesMapNo;$(DefineConstants)</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Core\CacheProviders\MsSQLCePureImageCache.cs" />
+      <Compile Remove="Core\CacheProviders\MSSQLPureImageCache.cs" />
+      <Compile Remove="Core\CacheProviders\MySQLPureImageCache.cs" />
+      <Compile Remove="Core\CacheProviders\PostgreSQLPureImageCache.cs" />
+      <Compile Remove="GMapControlSkia.cs" />
+      <Compile Remove="Markers\GMarkerGoogle.cs" />
+      <Compile Remove="TilePrefetcher.cs" />
+      <Compile Remove="TilePrefetcher.Designer.cs" />
+      <Compile Remove="ToolTips\GMapBaloonToolTip.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="TilePrefetcher.resx" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+      <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Modern.Forms\Modern.Forms.csproj" />
+    </ItemGroup>
+   
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

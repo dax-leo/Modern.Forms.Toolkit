@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>false</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PublishAot>true</PublishAot>
+	</PropertyGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\Modern.Forms.GMapNET\Modern.Forms.GMapNET.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Images\bing.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\draw_polygon.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\globe_africa.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\google.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\layers_map.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\layer_wms.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\location_pin.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Images\openstreet.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>
