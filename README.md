@@ -1,6 +1,7 @@
 # Modern.Forms.Toolkit
 
-Fork of excellent Modern.Forms project.  
+Fork of Modern.Forms project.  
+https://github.com/modern-forms/Modern.Forms  
 The purpose of this fork is to extend the original code with new features and UI components.
 
 **Warning**  :  
