@@ -32,3 +32,5 @@ Note, this library doesn't replace WebView/WebBrowser controls, as its capabilit
 - Modified paint methods and control buffers.  
 Single buffer approach is far better alternative in order to achieve good performance on high resolutions.  
 This modification will lower both memory and CPU usage for any business application with lot of nested controls.
+- Added dark theme  
+<img src="img/dark_theme.png" width="512"/>
