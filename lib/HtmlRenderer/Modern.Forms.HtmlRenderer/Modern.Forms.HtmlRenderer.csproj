@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Version>0.9.3</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="external\Art\**" />
+    <Compile Remove="external\Build\**" />
+    <Compile Remove="external\Source\Demo\**" />
+    <Compile Remove="external\Source\HtmlRenderer.PdfSharp\**" />
+    <Compile Remove="external\Source\HtmlRenderer.WinForms\**" />
+    <Compile Remove="external\Source\HtmlRenderer.WPF\**" />
+    <Compile Remove="external\Source\HtmlRenderer\bin\**" />
+    <Compile Remove="external\Source\HtmlRenderer\obj\**" />
+    <Compile Remove="external\Source\packages\**" />
+    <EmbeddedResource Remove="external\Art\**" />
+    <EmbeddedResource Remove="external\Build\**" />
+    <EmbeddedResource Remove="external\Source\Demo\**" />
+    <EmbeddedResource Remove="external\Source\HtmlRenderer.PdfSharp\**" />
+    <EmbeddedResource Remove="external\Source\HtmlRenderer.WinForms\**" />
+    <EmbeddedResource Remove="external\Source\HtmlRenderer.WPF\**" />
+    <EmbeddedResource Remove="external\Source\HtmlRenderer\bin\**" />
+    <EmbeddedResource Remove="external\Source\HtmlRenderer\obj\**" />
+    <EmbeddedResource Remove="external\Source\packages\**" />
+    <None Remove="external\Art\**" />
+    <None Remove="external\Build\**" />   
+    <None Remove="external\Source\HtmlRenderer\bin\**" />
+    <None Remove="external\Source\HtmlRenderer\obj\**" />
+    <None Remove="external\Source\packages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="external\Source\SharedAssemblyInfo.cs" />
+    <Compile Remove="HtmlRendererRoutedEventArgs.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="external\.git" />
+    <None Remove="external\.gitattributes" />
+    <None Remove="external\.gitignore" />
+    <None Remove="external\html.ico" />
+    <None Remove="external\LICENSE" />
+    <None Remove="external\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="external\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Topten.RichTextKit" Version="0.4.165" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Modern.Forms\Modern.Forms.csproj" />
+  </ItemGroup>
+
+</Project>
