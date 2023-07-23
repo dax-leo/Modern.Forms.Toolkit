@@ -1,0 +1,4 @@
+﻿            double[] sin = Generate.Sin(51);
+            double[] cos = Generate.Cos(51);
+            myPlot.Add.Signal(sin);
+            myPlot.Add.Signal(cos);

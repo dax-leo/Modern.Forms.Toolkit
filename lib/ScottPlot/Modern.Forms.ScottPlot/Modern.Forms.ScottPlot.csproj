@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>    
+    <ImplicitUsings>enable</ImplicitUsings>
+	<Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ScottPlot" Version="5.0.6-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Modern.Forms\Modern.Forms.csproj" />
+  </ItemGroup>
+
+</Project>

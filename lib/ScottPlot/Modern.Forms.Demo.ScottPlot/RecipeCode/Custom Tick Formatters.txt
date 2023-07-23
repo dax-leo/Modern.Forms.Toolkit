@@ -1,0 +1,23 @@
+﻿            double[] xs = Generate.Consecutive(100, 1, -50);
+            myPlot.Add.Scatter(xs, Generate.Sin(100));
+            myPlot.Add.Scatter(xs, Generate.Cos(100));
+
+            // create a static function containing the string formatting logic
+            static string CustomFormatter(double position)
+            {
+                if (position == 0)
+                    return "0";
+                else if (position > 0)
+                    return $"+{position}";
+                else
+                    return $"({-position})";
+            }
+
+            // create a custom tick generator using your custom label formatter
+            ScottPlot.TickGenerators.NumericAutomatic myTickGenerator = new()
+            {
+                LabelFormatter = CustomFormatter
+            };
+
+            // tell an axis to use the custom tick generator
+            myPlot.XAxis.TickGenerator = myTickGenerator;

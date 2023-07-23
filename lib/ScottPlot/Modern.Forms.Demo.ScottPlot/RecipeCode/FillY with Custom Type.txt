@@ -1,0 +1,16 @@
+﻿            // create source data in a nonstandard data type
+            List<(int, int, int)> data = new();
+            Random rand = new(0);
+            for (int i = 0; i < 10; i++)
+            {
+                int x = i;
+                int y1 = rand.Next(0, 10);
+                int y2 = rand.Next(20, 30);
+                data.Add((x, y1, y2));
+            }
+
+            // create a custom converter for the source data type
+            static (double, double, double) MyConverter((int, int, int) s) => (s.Item1, s.Item2, s.Item3);
+
+            // create a filled plot from source data using the custom converter
+            myPlot.Add.FillY(data, MyConverter);

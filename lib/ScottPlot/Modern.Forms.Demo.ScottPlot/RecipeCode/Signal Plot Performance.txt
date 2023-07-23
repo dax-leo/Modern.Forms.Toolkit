@@ -1,0 +1,3 @@
+﻿            double[] data = Generate.RandomWalk(1_000_000);
+            myPlot.Add.Signal(data);
+            myPlot.Title.Label.Text = ("Signal plot with one million points");

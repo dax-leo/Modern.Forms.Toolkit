@@ -1,0 +1,7 @@
+﻿            var sig = myPlot.Add.Signal(Generate.Sin(51));
+            sig.LineStyle.Width = 10;
+
+            ScottPlot.Grids.DefaultGrid grid = myPlot.GetDefaultGrid();
+            grid.MajorLineStyle.Width = 3;
+            grid.MajorLineStyle.Color = Colors.WhiteSmoke;
+            grid.IsBeneathPlottables = false;

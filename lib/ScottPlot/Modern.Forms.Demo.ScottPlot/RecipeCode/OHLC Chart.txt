@@ -1,0 +1,4 @@
+﻿            ScottPlot.RandomDataGenerator gen = new(0);
+            var prices = gen.RandomOHLCs(30);
+            myPlot.Add.OHLC(prices);
+            myPlot.Axes.DateTimeTicks(Edge.Bottom);

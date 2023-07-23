@@ -1,0 +1,8 @@
+﻿            myPlot.Add.Signal(Generate.Sin(51));
+            myPlot.Add.Signal(Generate.Cos(51));
+
+            // set limits that do not fit the data
+            myPlot.SetAxisLimits(-100, 150, -5, 5);
+
+            // reset limits to fit the data
+            myPlot.AutoScale();

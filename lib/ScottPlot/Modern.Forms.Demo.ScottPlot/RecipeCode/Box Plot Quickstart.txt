@@ -1,0 +1,32 @@
+﻿            // TODO: move this functionality to the RandomDataGenerator class
+            Random rand = new(0);
+            ScottPlot.Plottables.Box CreateRandomBox()
+            {
+                int N = 50;
+                double mean = rand.NextDouble() * 3;
+                double stdDev = rand.NextDouble() * 3;
+
+                double[] values = Generate.RandomNormal(N, mean, stdDev);
+                Array.Sort(values);
+                double min = values[0];
+                double q1 = values[N / 4];
+                double median = values[N / 2];
+                double q3 = values[3 * N / 4];
+                double max = values[N - 1];
+
+                return new ScottPlot.Plottables.Box
+                {
+                    WhiskerMin = min,
+                    BoxMin = q1,
+                    BoxMiddle = median,
+                    BoxMax = q3,
+                    WhiskerMax = max,
+                };
+            }
+
+            // TODO: construct 3 boxes manually with hard-coded numerical values for simplicity
+            List<ScottPlot.Plottables.Box> boxes = Enumerable.Range(0, 5)
+                .Select(x => CreateRandomBox())
+                .ToList();
+
+            myPlot.Add.Box(boxes);

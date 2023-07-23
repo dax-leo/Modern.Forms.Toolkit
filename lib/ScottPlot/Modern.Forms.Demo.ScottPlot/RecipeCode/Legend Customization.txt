@@ -1,0 +1,14 @@
+﻿            var sig1 = myPlot.Add.Signal(Generate.Sin(51));
+            sig1.Label = "Sin";
+
+            var sig2 = myPlot.Add.Signal(Generate.Cos(51));
+            sig2.Label = "Cos";
+
+            var legend = myPlot.GetLegend();
+            legend.OutlineStyle.Color = Colors.Navy;
+            legend.OutlineStyle.Width = 2;
+            legend.BackgroundFill.Color = Colors.LightBlue;
+            legend.ShadowFill.Color = Colors.Blue.WithOpacity(.5);
+            legend.Font.Size = 16;
+            legend.Font.Name = "Tahoma"; //Fonts.Serif;
+            legend.Alignment = Alignment.UpperCenter;

@@ -1,0 +1,18 @@
+﻿            RandomDataGenerator dataGen = new(0);
+
+            int count = 20;
+            double[] xs = Generate.Consecutive(count);
+            double[] ys1 = dataGen.RandomWalk(count, offset: -5);
+            double[] ys2 = dataGen.RandomWalk(count, offset: 5);
+
+            var xyy = myPlot.Add.FillY(xs, ys1, ys2);
+            xyy.FillStyle.Color = Colors.OrangeRed.WithAlpha(100);
+
+            xyy.MarkerStyle.IsVisible = true;
+            xyy.MarkerStyle.Shape = MarkerShape.OpenSquare;
+            xyy.MarkerStyle.Size = 8;
+
+            xyy.LineStyle.AntiAlias = true;
+            xyy.LineStyle.Color = Colors.DarkBlue;
+            xyy.LineStyle.Pattern = LinePattern.Dot;
+            xyy.LineStyle.Width = 2;

@@ -1,0 +1,8 @@
+﻿            List<ScottPlot.Plottables.Bar> bars = new()
+            {
+                new() { Position = 5, Value = 5, ValueBase = 3, },
+                new() { Position = 10, Value = 7, ValueBase = 0, },
+                new() { Position = 15, Value = 3, ValueBase = 2, },
+            };
+
+            myPlot.Add.Bar(bars);

@@ -1,0 +1,8 @@
+﻿            var sig1 = myPlot.Add.Signal(Generate.Sin(51));
+            sig1.Label = "Sin";
+
+            var sig2 = myPlot.Add.Signal(Generate.Cos(51));
+            sig2.Label = "Cos";
+
+            var legend = myPlot.GetLegend();
+            legend.ManualLegendItems = sig1.LegendItems;

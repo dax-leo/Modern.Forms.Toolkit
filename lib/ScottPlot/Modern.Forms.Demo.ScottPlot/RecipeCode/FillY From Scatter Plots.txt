@@ -1,0 +1,12 @@
+﻿            RandomDataGenerator dataGen = new(0);
+
+            int count = 20;
+            double[] xs = Generate.Consecutive(count);
+            double[] ys1 = dataGen.RandomWalk(count, offset: -5);
+            double[] ys2 = dataGen.RandomWalk(count, offset: 5);
+
+            var scatter1 = myPlot.Add.Scatter(xs, ys1);
+            var scatter2 = myPlot.Add.Scatter(xs, ys2);
+
+            var xyy = myPlot.Add.FillY(scatter1, scatter2);
+            xyy.FillStyle.Color = Colors.Blue.WithAlpha(100);

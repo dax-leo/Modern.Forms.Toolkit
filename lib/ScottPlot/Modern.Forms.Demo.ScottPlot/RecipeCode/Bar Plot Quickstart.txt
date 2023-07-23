@@ -1,0 +1,4 @@
+﻿            double[] values = { 5, 10, 7, 13 };
+            myPlot.Add.Bar(values);
+            myPlot.AutoScale();
+            myPlot.SetAxisLimits(bottom: 0);

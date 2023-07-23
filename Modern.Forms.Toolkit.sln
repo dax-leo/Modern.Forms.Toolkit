@@ -7,6 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.WindowKit", "src\Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.Forms", "src\Modern.Forms\Modern.Forms.csproj", "{B28A0941-A711-440B-AFE3-F3207B262F77}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{41FB64C5-1513-4490-9BB9-973EC4B8984F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScottPlot", "ScottPlot", "{868E12A9-EA9D-4C65-A2F5-FD8174D41A60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScottPlot Cookbook", "lib\ScottPlot\ScottPlot5 Cookbook\ScottPlot Cookbook.csproj", "{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.Forms.ScottPlot", "lib\ScottPlot\Modern.Forms.ScottPlot\Modern.Forms.ScottPlot.csproj", "{3B054672-1063-4253-A8F4-AB55557D3B48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.Forms.Demo.ScottPlot", "lib\ScottPlot\Modern.Forms.Demo.ScottPlot\Modern.Forms.Demo.ScottPlot.csproj", "{493A95FD-DE9E-478F-AB92-A9282412B158}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +31,27 @@ Global
 		{B28A0941-A711-440B-AFE3-F3207B262F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B28A0941-A711-440B-AFE3-F3207B262F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B28A0941-A711-440B-AFE3-F3207B262F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B054672-1063-4253-A8F4-AB55557D3B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B054672-1063-4253-A8F4-AB55557D3B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B054672-1063-4253-A8F4-AB55557D3B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B054672-1063-4253-A8F4-AB55557D3B48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493A95FD-DE9E-478F-AB92-A9282412B158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493A95FD-DE9E-478F-AB92-A9282412B158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493A95FD-DE9E-478F-AB92-A9282412B158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493A95FD-DE9E-478F-AB92-A9282412B158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{868E12A9-EA9D-4C65-A2F5-FD8174D41A60} = {41FB64C5-1513-4490-9BB9-973EC4B8984F}
+		{2A9AC8BA-B357-4C23-80D7-0E58B6ECAED4} = {868E12A9-EA9D-4C65-A2F5-FD8174D41A60}
+		{3B054672-1063-4253-A8F4-AB55557D3B48} = {868E12A9-EA9D-4C65-A2F5-FD8174D41A60}
+		{493A95FD-DE9E-478F-AB92-A9282412B158} = {868E12A9-EA9D-4C65-A2F5-FD8174D41A60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05A6D0DB-1EE0-4174-B095-3154EE5DD9F9}
