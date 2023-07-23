@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="DatePicker\**" />
+    <Compile Remove="Design\**" />
+    <Compile Remove="MonthCalendarControl\**" />
+    <EmbeddedResource Remove="DatePicker\**" />
+    <EmbeddedResource Remove="Design\**" />
+    <EmbeddedResource Remove="MonthCalendarControl\**" />
+    <None Remove="DatePicker\**" />
+    <None Remove="Design\**" />
+    <None Remove="MonthCalendarControl\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MonthCalendar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ComboArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Modern.Forms\Modern.Forms.csproj" />
+  </ItemGroup>
+</Project>

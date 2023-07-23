@@ -31,6 +31,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.Forms.Demo.GMapNET",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{32255568-8DA2-4085-9894-8C60890EEACB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MonthCalendar", "MonthCalendar", "{4B840384-0997-496F-ADCE-FC1AEC60E01F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.Forms.MonthCalendar", "lib\MonthCalendar\Modern.Forms.MonthCalendar\Modern.Forms.MonthCalendar.csproj", "{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E555789-2B44-4FA5-90D5-B8ADAC3FD2B0}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{4F7AB3E1-5F2F-4A81-BD77-D1E42FD9E87B}"
+	ProjectSection(SolutionItems) = preProject
+		img\htmlrenderer.png = img\htmlrenderer.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +87,10 @@ Global
 		{DA0B9FC4-55E5-4B85-82DC-FEDB30547E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA0B9FC4-55E5-4B85-82DC-FEDB30547E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA0B9FC4-55E5-4B85-82DC-FEDB30547E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +108,9 @@ Global
 		{BA84A968-CDBB-4AA3-857B-17905F50394B} = {41FB64C5-1513-4490-9BB9-973EC4B8984F}
 		{D5DEDC77-4B83-4CFD-8C45-4A764487F035} = {BA84A968-CDBB-4AA3-857B-17905F50394B}
 		{DA0B9FC4-55E5-4B85-82DC-FEDB30547E8F} = {BA84A968-CDBB-4AA3-857B-17905F50394B}
+		{4B840384-0997-496F-ADCE-FC1AEC60E01F} = {41FB64C5-1513-4490-9BB9-973EC4B8984F}
+		{B9D93B1D-443A-45DF-BA0C-B9EFA54FF311} = {4B840384-0997-496F-ADCE-FC1AEC60E01F}
+		{4F7AB3E1-5F2F-4A81-BD77-D1E42FD9E87B} = {2E555789-2B44-4FA5-90D5-B8ADAC3FD2B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05A6D0DB-1EE0-4174-B095-3154EE5DD9F9}
