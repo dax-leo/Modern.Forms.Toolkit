@@ -13,7 +13,7 @@ The goal of this fork is to extend the original code with new features and UI co
 ### Version 1.4.0
 - Added MonthCalendar and MonthCaledarDropDown control.  
 (https://www.codeproject.com/Articles/10840/Another-Month-Calendar)  
-<img src="img/calendar.png" width="256"/>
+<img src="img/calendar.png" />
 
 ### Version 1.3.0
 - Added ScottPlot 5.x port.  
